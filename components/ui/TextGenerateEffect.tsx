@@ -1,24 +1,62 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { motion, stagger, useAnimate } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-export function TextGenerateEffect({ words }: { words: string }) {
-  const [text, setText] = useState("");
-  const [isAnimating, setIsAnimating] = useState(true);
-
+export const TextGenerateEffect = ({
+  words,
+  className,
+  filter = true,
+  duration = 0.5,
+}: {
+  words: string;
+  className?: string;
+  filter?: boolean;
+  duration?: number;
+}) => {
+  const [scope, animate] = useAnimate();
+  let wordsArray = words.split(" ");
   useEffect(() => {
-    let currentIndex = 0;
-    const interval = setInterval(() => {
-      if (currentIndex <= words.length) {
-        setText(words.slice(0, currentIndex));
-        currentIndex++;
-      } else {
-        setIsAnimating(false);
-        clearInterval(interval);
+    animate(
+      "span",
+      {
+        opacity: 1,
+        filter: filter ? "blur(0px)" : "none",
+      },
+      {
+        duration: duration ? duration : 1,
+        delay: stagger(0.2),
       }
-    }, 100);
+    );
+  }, [scope.current]);
 
-    return () => clearInterval(interval);
-  }, [words]);
+  const renderWords = () => {
+    return (
+      <motion.div ref={scope}>
+        {wordsArray.map((word, idx) => {
+          return (
+            <motion.span
+              key={word + idx}
+              className= {`${idx > 3 ? "text-[#AFDDFF] " : "text"}opacity-0`}
+              style={{
+                filter: filter ? "blur(10px)" : "none",
+              }}
+            >
+              {word}{" "}
+            </motion.span>
+          );
+        })}
+      </motion.div>
+    );
+  };
 
-  return <span>{text}</span>;
-} 
+  return (
+    <div className={cn("font-bold", className)}>
+      <div className="my-4">
+        <div className="  leading-snug tracking-wide ">
+          {renderWords()}
+        </div>
+      </div>
+    </div>
+  );
+};

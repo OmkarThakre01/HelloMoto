@@ -1,39 +1,51 @@
 "use client";
-import { Spotlight } from "./ui/Spotlight";
+
 import { TextGenerateEffect } from "./ui/TextGenerateEffect";
-import { Button } from "./ui/moving-border";
+import { Button } from "./ui/Button";
+import { TbHandClick } from "react-icons/tb";
+import { BackgroundBeamsWithCollision } from "./ui/BackgroundBeamsWithCollision";
 
 export function Hero() {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-black/[0.96] antialiased">
-      {/* Background Effect */}
-      <Spotlight
-        className="absolute -top-40 left-0 md:left-60 md:-top-20"
-        fill="white"
-      />
+    <div className="relative min-h-screen w-full overflow-hidden bg-black/[0.96] antialiased lg:top-[10px] sm:top-[-100px] md:top-[-100px] ">
       
+      {/* Background Layer */}
+      <div className="absolute inset-0 z-0">
+        <BackgroundBeamsWithCollision className="h-full w-full">
+          <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-4 lg:px-4">
+            <div className="max-w-7xl mx-auto text-center space-y-4 md:space-y-4">
+              
+            </div>
+          </div>
+        </BackgroundBeamsWithCollision>
+      </div>
+
       {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-4 lg:px-4">
+        <div className="max-w-7xl mx-auto text-center space-y-4 md:space-y-4">
+          
           {/* Main Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 md:mb-8">
-            <TextGenerateEffect words="Crafting Digital Experiences" />
+          <h1 className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
+            <TextGenerateEffect
+            className="text-center text-white text-5xl md:text-5xl lg:text-6xl"
+            words="Transforming ideas into stunning digital experiences" />
           </h1>
-          
+
           {/* Subheading */}
-          <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-8 sm:mb-10 max-w-md sm:max-w-lg md:max-w-xl mx-auto">
-            Transforming ideas into exceptional digital solutions. We build innovative
-            products that drive growth and create lasting impact.
+          <p className="text-white/90 text-sm md:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed">
+            Hi, I'm Omkar.<br />
+            Web & React Native Developer | UI/UX Designer
           </p>
-          
+
           {/* CTA Button */}
-          <div className="flex justify-center">
-            <Button
-              borderRadius="1.75rem"
-              className="bg-white text-black hover:bg-gray-100 transition-colors duration-300"
-            >
-              Get Started
-            </Button>
+          <div className="pt-4 md:pt-6">
+            <a href="#about" aria-label="View my work">
+              <Button
+                title="View My Work"
+                icon={<TbHandClick className="mr-2" size={20} />}
+                position="left"
+              />
+            </a>
           </div>
         </div>
       </div>

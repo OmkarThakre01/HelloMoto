@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { cn } from "@/lib/utils";
 
 interface SpotlightProps {
   className?: string;
@@ -9,7 +10,10 @@ interface SpotlightProps {
 export function Spotlight({ className, fill = "white" }: SpotlightProps) {
   return (
     <div
-      className={`pointer-events-none absolute h-[169%] w-[138%] lg:w-[84%] opacity-70 ${className}`}
+      className={cn(
+        "pointer-events-none absolute h-[169%] w-[138%] lg:w-[84%] opacity-70",
+        className
+      )}
     >
       <div
         className="absolute inset-0 h-full w-full"
