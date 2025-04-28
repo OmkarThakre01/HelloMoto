@@ -1,69 +1,63 @@
 // src/components/ui/BentoGrid.tsx
 
-import * as React from "react";
-import { cn } from "@/lib/utils"; // Utility for conditional class names
+"use client";
+import React from "react";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-// Define BentoGrid props
-interface BentoGridProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
+interface BentoGridProps {
+  className?: string;
+  children?: React.ReactNode;
 }
 
-// BentoGrid component
-export const BentoGrid: React.FC<BentoGridProps> = ({ children, className, ...props }) => {
+export function BentoGrid({ className, children }: BentoGridProps) {
   return (
     <div
       className={cn(
-        "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto",
+        "grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto",
         className
       )}
-      {...props}
     >
       {children}
     </div>
   );
-};
-
-// Define BentoGridItem props
-interface BentoGridItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  id: string;
-  title: string;
-  description: React.ReactNode;
-  header: React.ReactNode;
-  icon: React.ReactNode;
 }
 
-// BentoGridItem component
-export const BentoGridItem: React.FC<BentoGridItemProps> = ({
-  id,
+interface BentoGridItemProps {
+  className?: string;
+  title?: string;
+  description?: string;
+  header?: React.ReactNode;
+  icon?: React.ReactNode;
+}
+
+export function BentoGridItem({
+  className,
   title,
   description,
   header,
   icon,
-  className,
-  ...props
-}) => {
+}: BentoGridItemProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className={cn(
-        "group relative flex flex-col justify-between overflow-hidden rounded-xl border border-neutral-200 bg-white p-6 dark:border-white/[0.1] dark:bg-black",
+        "row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4",
         className
       )}
-      {...props}
     >
-      <div className="absolute top-4 right-4">{icon}</div>
-      <div className="flex-1 h-full">{header}</div>
-      <div className="mt-4">
-        <div className="font-semibold text-neutral-700 dark:text-neutral-200">
+      {header}
+      <div className="group-hover/bento:translate-x-2 transition duration-200">
+        {icon}
+        <div className="font-sans font-bold text-neutral-600 dark:text-neutral-200 mb-2 mt-2">
           {title}
         </div>
-        <div className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+        <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300">
           {description}
         </div>
       </div>
     </motion.div>
   );
-};
+}
